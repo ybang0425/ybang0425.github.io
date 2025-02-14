@@ -1,16 +1,18 @@
 {
-  "name": "yimbyeonghyun",
+  "name": "test",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "",
+  "main": "main.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node .",
+    "debug": "DEBUG=true node ."
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
-    "express": "^4.21.2"
-  }
+    "express": "^4.21.2",
+    "node-fetch": "^3.3.2"
+  },
+  "type": "module"
 }
-
