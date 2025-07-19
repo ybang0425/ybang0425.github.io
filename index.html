@@ -1,3 +1,120 @@
-<div class="guestbook-container">
-    <h2>방명록</h2>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>김OO의 미니홈피</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap');
+
+        body { 
+            background-color: #4A4A4A; /* 어두운 돌 색 배경 */
+            font-family: 'Noto Sans KR', sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            margin: 0; 
+            padding: 20px; 
+            box-sizing: border-box; 
+        }
+        .wrapper { 
+            width: 100%; 
+            max-width: 600px; 
+        }
+        .minihompy-container, .guestbook-container { 
+            background-color: #FFFFFF; /* 밝은 컨텐츠 영역 */
+            border: 1px solid #E0E0E0;
+            padding: 30px; 
+            text-align: center; 
+            margin-bottom: 20px; 
+            border-radius: 4px; /* 살짝 둥근 모서리 */
+        }
+        h1 { font-size: 42px; color: #212121; font-weight: 700; margin: 0; }
+        h2 { font-size: 30px; color: #333; font-weight: 700; border-bottom: 2px solid #F0F0F0; padding-bottom: 10px; margin-bottom: 20px; }
+        p { font-size: 20px; color: #616161; }
+        #guestbook-form { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+        #guestbook-form input, #guestbook-form textarea { font-family: 'Noto Sans KR', sans-serif; font-size: 16px; padding: 12px; border: 1px solid #BDBDBD; border-radius: 4px; }
+        #guestbook-form button { font-family: 'Noto Sans KR', sans-serif; font-size: 18px; font-weight: 700; padding: 12px; background-color: #212121; color: white; border: none; cursor: pointer; border-radius: 4px; transition: background-color 0.2s; }
+        #guestbook-form button:hover { background-color: #555; }
+        #guestbook-list { list-style: none; padding: 0; margin-top: 20px; text-align: left; }
+        #guestbook-list li { border-bottom: 1px solid #F0F0F0; padding: 15px 5px; margin-bottom: 10px; }
+        #guestbook-list li strong { font-size: 18px; font-weight: 700; }
+        #guestbook-list li p { font-size: 16px; margin: 8px 0 0; color: #424242; }
+        #guestbook-list li span { font-size: 12px; color: #9E9E9E; display: block; margin-top: 8px; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="minihompy-container">
+            <h1>김OO의 미니홈피</h1>
+            <p>오늘의 기분: 방명록 만드는 중! 📝</p>
+        </div>
+
+        <div class="guestbook-container">
+            <h2>방명록</h2>
+            <form id="guestbook-form">
+                <input type="text" id="author" placeholder="이름" required>
+                <textarea id="content" rows="3" placeholder="남기실 말씀..." required></textarea>
+                <button type="submit">남기기</button>
+            </form>
+            <ul id="guestbook-list"></ul>
+        </div>
     </div>
+
+    <script>
+        const form = document.getElementById('guestbook-form');
+        const guestbookList = document.getElementById('guestbook-list');
+
+        // 방명록 글을 서버에서 불러와서 화면에 표시하는 함수
+        async function fetchGuestbook() {
+            try {
+                const response = await fetch('/api/guestbook'); // 서버의 GET API 호출
+                const entries = await response.json();
+
+                guestbookList.innerHTML = ''; // 기존 목록을 깨끗하게 비움
+                entries.forEach(entry => {
+                    const li = document.createElement('li');
+                    const date = new Date(entry.created_at).toLocaleString('ko-KR'); // 한국 시간 형식으로 변환
+                    li.innerHTML = `
+                        <strong>${entry.author}</strong>
+                        <p>${entry.content}</p>
+                        <span>${date}</span>
+                    `;
+                    guestbookList.appendChild(li);
+                });
+            } catch (error) {
+                console.error('방명록 로딩 실패:', error);
+            }
+        }
+
+        // 사용자가 '남기기' 버튼을 눌렀을 때 실행되는 함수
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault(); // 폼 제출 시 페이지가 새로고침되는 기본 동작을 막음
+
+            const author = document.getElementById('author').value;
+            const content = document.getElementById('content').value;
+
+            try {
+                const response = await fetch('/api/guestbook', {
+                    method: 'POST', // 글을 생성하므로 POST 방식 사용
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ author, content }) // JavaScript 객체를 JSON 문자열로 변환하여 전송
+                });
+
+                if (response.ok) {
+                    document.getElementById('author').value = ''; // 입력창 비우기
+                    document.getElementById('content').value = '';
+                    fetchGuestbook(); // 새 글이 추가되었으니 목록을 다시 불러옴
+                } else {
+                    alert('방명록 작성에 실패했습니다.');
+                }
+            } catch (error) {
+                console.error('방명록 작성 실패:', error);
+            }
+        });
+
+        // 웹페이지가 처음 열릴 때 방명록 목록을 자동으로 불러옴
+        fetchGuestbook();
+    </script>
+</body>
+</html>
