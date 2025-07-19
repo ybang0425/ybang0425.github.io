@@ -1,0 +1,50 @@
+/* 전체 페이지 스타일 */
+body {
+    font-family: sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* 내용을 감싸는 카드 스타일 */
+.container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 500px;
+}
+
+/* 로고 이미지 스타일 */
+.logo {
+    width: 80px;
+    margin-bottom: 20px;
+}
+
+/* 제목 스타일 */
+h1 {
+    color: #1a1a1a;
+}
+
+/* 버튼 스타일 */
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+/* 버튼에 마우스를 올렸을 때 스타일 */
+button:hover {
+    background-color: #0056b3;
+}
