@@ -1,13 +1,12 @@
 {
-  "name": "my-minihompy",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "name": "bot-display-server",
+  "version": "2.0.0",
+  "description": "A simple server to display messages from a KakaoTalk bot.",
+  "main": "index.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node index.js"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "mysql2": "^3.6.5"
+    "express": "^4.19.2"
   }
 }
