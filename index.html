@@ -1,120 +1,96 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>김OO의 미니홈피</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap');
+const express = require('express');
+const fs = require('fs');
+const path = require('path');
+const app = express();
+const PORT = 3000; // Cloudtype이 자동으로 포트를 할당합니다.
 
-        body { 
-            background-color: #4A4A4A; /* 어두운 돌 색 배경 */
-            font-family: 'Noto Sans KR', sans-serif; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh; 
-            margin: 0; 
-            padding: 20px; 
-            box-sizing: border-box; 
-        }
-        .wrapper { 
-            width: 100%; 
-            max-width: 600px; 
-        }
-        .minihompy-container, .guestbook-container { 
-            background-color: #FFFFFF; /* 밝은 컨텐츠 영역 */
-            border: 1px solid #E0E0E0;
-            padding: 30px; 
-            text-align: center; 
-            margin-bottom: 20px; 
-            border-radius: 4px; /* 살짝 둥근 모서리 */
-        }
-        h1 { font-size: 42px; color: #212121; font-weight: 700; margin: 0; }
-        h2 { font-size: 30px; color: #333; font-weight: 700; border-bottom: 2px solid #F0F0F0; padding-bottom: 10px; margin-bottom: 20px; }
-        p { font-size: 20px; color: #616161; }
-        #guestbook-form { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
-        #guestbook-form input, #guestbook-form textarea { font-family: 'Noto Sans KR', sans-serif; font-size: 16px; padding: 12px; border: 1px solid #BDBDBD; border-radius: 4px; }
-        #guestbook-form button { font-family: 'Noto Sans KR', sans-serif; font-size: 18px; font-weight: 700; padding: 12px; background-color: #212121; color: white; border: none; cursor: pointer; border-radius: 4px; transition: background-color 0.2s; }
-        #guestbook-form button:hover { background-color: #555; }
-        #guestbook-list { list-style: none; padding: 0; margin-top: 20px; text-align: left; }
-        #guestbook-list li { border-bottom: 1px solid #F0F0F0; padding: 15px 5px; margin-bottom: 10px; }
-        #guestbook-list li strong { font-size: 18px; font-weight: 700; }
-        #guestbook-list li p { font-size: 16px; margin: 8px 0 0; color: #424242; }
-        #guestbook-list li span { font-size: 12px; color: #9E9E9E; display: block; margin-top: 8px; }
-    </style>
-</head>
-<body>
-    <div class="wrapper">
-        <div class="minihompy-container">
-            <h1>김OO의 미니홈피</h1>
-            <p>오늘의 기분: 방명록 만드는 중! 📝</p>
-        </div>
+// 보안: API 토큰을 코드에서 분리하는 것이 좋지만, 이 예제에서는 상수로 정의합니다.
+const SECRET_API_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJtNW1va243bjIyYjA1Zjk4IiwiaWF0IjoxNzUzMjY5NzM1fQ.JfplkFmSPs2iAY16stTYG6RLrlIJO1J2pl-a14ePWnI";
+const DATA_FILE_PATH = path.join(__dirname, 'data.txt');
 
-        <div class="guestbook-container">
-            <h2>방명록</h2>
-            <form id="guestbook-form">
-                <input type="text" id="author" placeholder="이름" required>
-                <textarea id="content" rows="3" placeholder="남기실 말씀..." required></textarea>
-                <button type="submit">남기기</button>
-            </form>
-            <ul id="guestbook-list"></ul>
-        </div>
-    </div>
+// POST 요청의 JSON 본문을 파싱하기 위한 미들웨어 설정
+app.use(express.json());
 
-    <script>
-        const form = document.getElementById('guestbook-form');
-        const guestbookList = document.getElementById('guestbook-list');
+// --- 라우트(Route) 설정 ---
 
-        // 방명록 글을 서버에서 불러와서 화면에 표시하는 함수
-        async function fetchGuestbook() {
-            try {
-                const response = await fetch('/api/guestbook'); // 서버의 GET API 호출
-                const entries = await response.json();
+/**
+ * @route GET /
+ * @description 웹 페이지를 렌더링하여 보여줍니다.
+ */
+app.get('/', (req, res) => {
+    try {
+        const message = fs.readFileSync(DATA_FILE_PATH, 'utf8');
+        res.send(`
+            <!DOCTYPE html>
+            <html lang="ko">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Bot Display</title>
+                <style>
+                    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+                    body { 
+                        font-family: 'Noto Sans KR', sans-serif; 
+                        display: flex; 
+                        justify-content: center; 
+                        align-items: center; 
+                        text-align: center;
+                        height: 100vh; 
+                        margin: 0;
+                        background-color: #1e1e1e; 
+                        color: #e0e0e0;
+                        padding: 20px;
+                        box-sizing: border-box;
+                    }
+                    h1 { 
+                        font-size: 3rem; 
+                        word-break: break-all;
+                    }
+                    @media (max-width: 768px) {
+                        h1 { font-size: 2rem; }
+                    }
+                </style>
+            </head>
+            <body>
+                <h1>${message}</h1>
+            </body>
+            </html>
+        `);
+    } catch (error) {
+        console.error("파일 읽기 오류:", error);
+        res.status(500).send("데이터 파일을 읽는 중 오류가 발생했습니다.");
+    }
+});
 
-                guestbookList.innerHTML = ''; // 기존 목록을 깨끗하게 비움
-                entries.forEach(entry => {
-                    const li = document.createElement('li');
-                    const date = new Date(entry.created_at).toLocaleString('ko-KR'); // 한국 시간 형식으로 변환
-                    li.innerHTML = `
-                        <strong>${entry.author}</strong>
-                        <p>${entry.content}</p>
-                        <span>${date}</span>
-                    `;
-                    guestbookList.appendChild(li);
-                });
-            } catch (error) {
-                console.error('방명록 로딩 실패:', error);
-            }
-        }
+/**
+ * @route POST /api/update
+ * @description 봇으로부터 메시지를 수신하여 파일에 저장합니다.
+ */
+app.post('/api/update', (req, res) => {
+    // 1. 인증 헤더 확인
+    const authHeader = req.headers['authorization'];
+    if (!authHeader || authHeader !== `Bearer ${SECRET_API_TOKEN}`) {
+        console.warn("인증 실패:", authHeader);
+        return res.status(401).send({ status: 'error', message: 'Unauthorized' });
+    }
 
-        // 사용자가 '남기기' 버튼을 눌렀을 때 실행되는 함수
-        form.addEventListener('submit', async (event) => {
-            event.preventDefault(); // 폼 제출 시 페이지가 새로고침되는 기본 동작을 막음
+    // 2. 요청 본문에서 메시지 추출
+    const { message } = req.body;
+    if (!message) {
+        return res.status(400).send({ status: 'error', message: 'No message provided' });
+    }
 
-            const author = document.getElementById('author').value;
-            const content = document.getElementById('content').value;
+    // 3. 파일에 내용 쓰기 (동기 방식)
+    try {
+        fs.writeFileSync(DATA_FILE_PATH, message, 'utf8');
+        console.log(`[${new Date().toLocaleString('ko-KR')}] 웹 페이지 내용 변경: ${message}`);
+        res.status(200).send({ status: 'success', message: 'Updated successfully' });
+    } catch (error) {
+        console.error("파일 쓰기 오류:", error);
+        res.status(500).send({ status: 'error', message: 'Failed to write to file' });
+    }
+});
 
-            try {
-                const response = await fetch('/api/guestbook', {
-                    method: 'POST', // 글을 생성하므로 POST 방식 사용
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ author, content }) // JavaScript 객체를 JSON 문자열로 변환하여 전송
-                });
-
-                if (response.ok) {
-                    document.getElementById('author').value = ''; // 입력창 비우기
-                    document.getElementById('content').value = '';
-                    fetchGuestbook(); // 새 글이 추가되었으니 목록을 다시 불러옴
-                } else {
-                    alert('방명록 작성에 실패했습니다.');
-                }
-            } catch (error) {
-                console.error('방명록 작성 실패:', error);
-            }
-        });
-
-        // 웹페이지가 처음 열릴 때 방명록 목록을 자동으로 불러옴
-        fetchGuestbook();
-    </script>
-</body>
-</html>
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
