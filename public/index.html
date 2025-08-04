@@ -7,17 +7,6 @@
     <style>
         @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
         
-        :root {
-            --font-main: 'Pretendard', sans-serif;
-            --color-dark-blue: #2C3E50;
-            --color-mid-blue: #34495E;
-            --color-light-blue: #3498DB;
-            --color-purple: #8E44AD;
-            --color-light-purple: #9B59B6;
-            --color-white: #ECF0F1;
-            --color-grey: #7F8C8D;
-        }
-
         body {
             margin: 0;
             padding: 0;
@@ -25,8 +14,8 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: linear-gradient(135deg, var(--color-dark-blue), var(--color-light-blue), var(--color-light-purple));
-            font-family: var(--font-main);
+            background: linear-gradient(135deg, #2C3E50, #3498DB, #9B59B6);
+            font-family: 'Pretendard', sans-serif;
             overflow: hidden;
         }
         
@@ -48,8 +37,8 @@
             height: 100%;
         }
         
-        /* --- 화면 공통 스타일 --- */
-        .screen {
+        /* 로그인 화면 */
+        #loginScreen {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -57,24 +46,18 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        /* 로그인 화면 */
-        #loginScreen {
-            background: linear-gradient(135deg, var(--color-dark-blue), var(--color-mid-blue));
+            background: linear-gradient(135deg, #2C3E50, #34495E);
         }
         
         #loginScreen h1 {
             font-size: 48px;
-            color: var(--color-white);
+            color: #ECF0F1;
             margin-bottom: 30px;
             text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
         }
         
         #nameInput {
-            font-family: var(--font-main);
+            font-family: 'Pretendard', sans-serif;
             font-size: 24px;
             padding: 15px 30px;
             border: none;
@@ -83,15 +66,13 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             text-align: center;
             margin-bottom: 20px;
-            width: 80%;
-            max-width: 300px;
         }
         
         #loginBtn {
-            font-family: var(--font-main);
+            font-family: 'Pretendard', sans-serif;
             padding: 15px 40px;
             font-size: 20px;
-            background: var(--color-light-purple);
+            background: #8E44AD;
             border: none;
             border-radius: 30px;
             color: white;
@@ -107,19 +88,24 @@
         
         /* 메인 메뉴 */
         #mainMenu {
+            position: absolute;
+            width: 100%;
+            height: 100%;
             display: none;
-            background: linear-gradient(135deg, var(--color-mid-blue), var(--color-dark-blue));
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #34495E, #2C3E50);
         }
         
         #mainMenu h2 {
             font-size: 36px;
-            color: var(--color-white);
+            color: #ECF0F1;
             margin-bottom: 40px;
-            text-align: center;
         }
         
         .menuBtn {
-            font-family: var(--font-main);
+            font-family: 'Pretendard', sans-serif;
             padding: 20px 60px;
             font-size: 24px;
             margin: 10px;
@@ -131,13 +117,13 @@
         }
         
         #startBtn {
-            background: var(--color-light-blue);
+            background: #3498DB;
             color: white;
             box-shadow: 0 5px 15px rgba(52,152,219,0.4);
         }
         
         #rankingBtn {
-            background: var(--color-light-purple);
+            background: #9B59B6;
             color: white;
             box-shadow: 0 5px 15px rgba(155,89,182,0.4);
         }
@@ -149,15 +135,21 @@
         
         /* 랭킹 화면 */
         #rankingScreen {
+            position: absolute;
+            width: 100%;
+            height: 100%;
             display: none;
-            background: linear-gradient(135deg, var(--color-dark-blue), var(--color-light-blue));
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(135deg, #2C3E50, #3498DB);
             padding: 40px;
+            box-sizing: border-box;
             overflow-y: auto;
         }
         
         #rankingScreen h2 {
             font-size: 42px;
-            color: var(--color-white);
+            color: #ECF0F1;
             margin-bottom: 30px;
         }
         
@@ -179,19 +171,48 @@
             transform: translateX(10px);
         }
         
-        .rank1 { background: linear-gradient(135deg, #FFD700, #FFA500); color: white; font-size: 24px; box-shadow: 0 8px 25px rgba(255,215,0,0.5); }
-        .rank2 { background: linear-gradient(135deg, #C0C0C0, #A8A8A8); color: white; font-size: 22px; box-shadow: 0 8px 25px rgba(192,192,192,0.5); }
-        .rank3 { background: linear-gradient(135deg, #CD7F32, #B87333); color: white; font-size: 20px; box-shadow: 0 8px 25px rgba(205,127,50,0.5); }
+        .rank1 {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 8px 25px rgba(255,215,0,0.5);
+        }
         
-        .rankNumber { font-size: 36px; font-weight: bold; margin-right: 20px; }
-        .rankName { flex: 1; text-align: left; }
-        .rankScore { font-size: 28px; font-weight: bold; }
+        .rank2 {
+            background: linear-gradient(135deg, #C0C0C0, #A8A8A8);
+            color: white;
+            font-size: 22px;
+            box-shadow: 0 8px 25px rgba(192,192,192,0.5);
+        }
+        
+        .rank3 {
+            background: linear-gradient(135deg, #CD7F32, #B87333);
+            color: white;
+            font-size: 20px;
+            box-shadow: 0 8px 25px rgba(205,127,50,0.5);
+        }
+        
+        .rankNumber {
+            font-size: 36px;
+            font-weight: bold;
+            margin-right: 20px;
+        }
+        
+        .rankName {
+            flex: 1;
+            text-align: left;
+        }
+        
+        .rankScore {
+            font-size: 28px;
+            font-weight: bold;
+        }
         
         #backBtn {
-            font-family: var(--font-main);
+            font-family: 'Pretendard', sans-serif;
             padding: 15px 40px;
             font-size: 20px;
-            background: var(--color-mid-blue);
+            background: #34495E;
             border: none;
             border-radius: 30px;
             color: white;
@@ -208,60 +229,69 @@
         /* 게임 UI */
         #gameUI {
             position: absolute;
-            top: 10px;
-            left: 10px;
-            right: 10px;
+            top: 20px;
+            left: 20px;
+            right: 20px;
             display: none;
             justify-content: space-between;
             align-items: flex-start;
-            pointer-events: none;
-            gap: 5px;
+            pointer-events: none; /* UI가 게임 클릭을 방해하지 않도록 설정 */
         }
         
         .gameInfo {
             background: rgba(255,255,255,0.9);
-            padding: 10px 20px;
-            border-radius: 15px;
+            padding: 15px 25px;
+            border-radius: 20px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             text-align: center;
-            flex-shrink: 1;
         }
         
-        .gameInfo h3 { margin: 0; font-size: 16px; color: var(--color-dark-blue); }
-        .gameInfo p { margin: 5px 0 0; font-size: 20px; color: #333; }
+        .gameInfo h3 {
+            margin: 0;
+            font-size: 20px;
+            color: #2C3E50;
+        }
         
-        #levelInfo { background: linear-gradient(135deg, var(--color-purple), var(--color-light-purple)); }
-        #levelInfo h3, #levelInfo p { color: white; }
+        .gameInfo p {
+            margin: 5px 0 0;
+            font-size: 24px;
+            color: #333;
+        }
+        
+        #levelInfo {
+            background: linear-gradient(135deg, #8E44AD, #9B59B6);
+            color: white;
+        }
+        
+        #levelInfo h3, #levelInfo p {
+            color: white;
+        }
         
         /* 게임 오버 */
         #gameOver {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
             display: none;
             background: rgba(255,255,255,0.95);
             padding: 40px;
             border-radius: 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            width: 80%;
-            max-width: 450px;
         }
         
         #gameOver h2 {
             font-size: 48px;
-            color: var(--color-purple);
-            margin-top: 0;
+            color: #8E44AD;
             margin-bottom: 20px;
-        }
-
-        .final-stats {
-            font-size: 22px;
-            color: var(--color-mid-blue);
-            margin: 10px 0;
         }
         
         .gameOverBtn {
-            font-family: var(--font-main);
+            font-family: 'Pretendard', sans-serif;
             padding: 15px 40px;
             font-size: 20px;
-            margin: 10px 5px 0;
+            margin: 10px;
             border: none;
             border-radius: 30px;
             color: white;
@@ -269,54 +299,60 @@
             transition: all 0.3s;
         }
         
-        #restartBtn { background: var(--color-light-blue); box-shadow: 0 5px 15px rgba(52,152,219,0.4); }
-        #menuBtn { background: var(--color-grey); box-shadow: 0 5px 15px rgba(127,140,141,0.4); }
-
-        /* --- 반응형 디자인 --- */
-        @media (max-width: 600px) {
-            #loginScreen h1 { font-size: 36px; }
-            #nameInput { font-size: 18px; padding: 12px 20px; }
-            #loginBtn { font-size: 18px; padding: 12px 30px; }
-
-            #mainMenu h2 { font-size: 28px; }
-            .menuBtn { width: 80%; max-width: 250px; font-size: 20px; padding: 15px; }
-            
-            #rankingScreen h2 { font-size: 32px; }
-            .rankItem { padding: 15px; }
-            .rankNumber { font-size: 24px; margin-right: 15px; }
-            .rankName { font-size: 16px; }
-            .rankScore { font-size: 20px; }
-
-            .gameInfo { padding: 8px 12px; border-radius: 10px; }
-            .gameInfo h3 { font-size: 12px; }
-            .gameInfo p { font-size: 16px; }
-
-            #gameOver { padding: 20px; }
-            #gameOver h2 { font-size: 32px; margin-bottom: 15px; }
-            .final-stats { font-size: 18px; }
-            .gameOverBtn { width: 80%; max-width: 200px; font-size: 16px; padding: 12px; margin-top: 5px; }
+        #restartBtn {
+            background: #3498DB;
+            box-shadow: 0 5px 15px rgba(52,152,219,0.4);
+        }
+        
+        #menuBtn {
+            background: #7F8C8D;
+            box-shadow: 0 5px 15px rgba(127,140,141,0.4);
         }
 
+        /* --- 모바일 반응형 스타일 --- */
+        @media (max-width: 600px) {
+            #gameOver {
+                padding: 25px;       /* 내부 여백을 줄여 전체적인 크기 조절 */
+                width: 90%;          /* 화면 폭에 맞게 너비 조절 */
+            }
+
+            #gameOver h2 {
+                font-size: 32px;     /* '게임 오버!' 텍스트 크기 줄이기 */
+                margin-bottom: 15px;
+            }
+
+            /* HTML 인라인 스타일(style="...")을 덮어쓰기 위해 !important 사용 */
+            #gameOver p {
+                font-size: 18px !important; /* 스코어, 레벨 텍스트 크기 줄이기 */
+                margin-bottom: 25px !important;
+            }
+
+            .gameOverBtn {
+                font-size: 16px;      /* 버튼 텍스트 크기 줄이기 */
+                padding: 12px 25px;   /* 버튼 크기(여백) 줄이기 */
+                width: 150px;         /* 버튼 너비 조절 */
+            }
+        }
     </style>
 </head>
 <body>
     <div id="gameContainer">
         <!-- 로그인 화면 -->
-        <div id="loginScreen" class="screen">
+        <div id="loginScreen">
             <h1>늑대의 밤</h1>
             <input type="text" id="nameInput" placeholder="이름을 입력하세요" maxlength="10">
             <button id="loginBtn">시작하기</button>
         </div>
         
         <!-- 메인 메뉴 -->
-        <div id="mainMenu" class="screen">
+        <div id="mainMenu">
             <h2 id="welcomeMsg"></h2>
             <button id="startBtn" class="menuBtn">게임 시작</button>
             <button id="rankingBtn" class="menuBtn">랭킹 보기</button>
         </div>
         
         <!-- 랭킹 화면 -->
-        <div id="rankingScreen" class="screen">
+        <div id="rankingScreen">
             <h2>🏆 명예의 전당 🏆</h2>
             <div id="rankingList"></div>
             <button id="backBtn">돌아가기</button>
@@ -342,10 +378,10 @@
         </div>
         
         <!-- 게임 오버 -->
-        <div id="gameOver" class="screen">
+        <div id="gameOver">
             <h2>게임 오버!</h2>
-            <p class="final-stats">최종 스코어: <span id="finalScore">0</span></p>
-            <p class="final-stats">최종 레벨: <span id="finalLevel">1</span></p>
+            <p style="font-size: 24px; color: #34495E; margin-bottom: 10px;">최종 스코어: <span id="finalScore">0</span></p>
+            <p style="font-size: 20px; color: #34495E; margin-bottom: 30px;">최종 레벨: <span id="finalLevel">1</span></p>
             <button id="restartBtn" class="gameOverBtn">다시 시작</button>
             <button id="menuBtn" class="gameOverBtn">메인 메뉴</button>
         </div>
@@ -524,14 +560,18 @@
             const playerIndex = rankings.findIndex(r => r.name === name);
 
             if (playerIndex > -1) {
+                // 기존 유저면 최고 점수만 저장
                 if (score > rankings[playerIndex].score) {
                     rankings[playerIndex].score = score;
                 }
             } else {
+                // 신규 유저
                 rankings.push({ name, score });
             }
 
+            // 점수 순으로 정렬
             rankings.sort((a, b) => b.score - a.score);
+            // 상위 100명만 저장
             rankings = rankings.slice(0, 100);
 
             localStorage.setItem('wolfsNightRanking', JSON.stringify(rankings));
@@ -600,8 +640,9 @@
             player.velocityY = 0;
             player.jumping = false;
 
+            // 장애물 생성 타이머 초기화
             obstacleFrameCounter = 0;
-            nextObstacleTriggerFrame = 120;
+            nextObstacleTriggerFrame = 120; // 첫 장애물은 2초(120프레임) 후에 등장
             
             if (clouds.length === 0) {
                 for (let i = 0; i < 5; i++) {
@@ -613,12 +654,23 @@
             gameLoop();
         }
 
+        /**
+         * [개선] 레벨에 따라 다음 장애물이 등장할 타이밍을 계산합니다.
+         * 레벨이 높을수록 간격이 좁아져 더 어려워집니다.
+         */
         function calculateNextObstacleTiming() {
+            // 기본 최소/최대 간격 (픽셀 단위)
             const baseMinGap = 280;
             const baseRandomGap = 400;
+
+            // 레벨에 따라 간격을 줄임 (최소 100px의 간격은 보장)
             const minGap = Math.max(150, baseMinGap - level * 8);
             const randomGap = Math.max(100, baseRandomGap - level * 10);
+
+            // 다음 장애물까지의 거리 (픽셀)
             const nextObstacleDistance = minGap + Math.random() * randomGap;
+
+            // 거리를 현재 게임 속도로 나누어 다음 장애물이 등장할 프레임 수를 계산
             nextObstacleTriggerFrame = nextObstacleDistance / gameSpeed;
         }
         
@@ -658,22 +710,26 @@
             }
             drawPlayer();
             
+            // --- [개선] 장애물 생성 로직 ---
             obstacleFrameCounter++;
             if (obstacleFrameCounter > nextObstacleTriggerFrame) {
                 obstacles.push(new Obstacle(getObstacleType()));
                 obstacleFrameCounter = 0;
-                calculateNextObstacleTiming();
+                calculateNextObstacleTiming(); // 다음 장애물 타이밍 계산
             }
             
-            obstacles = obstacles.filter(obstacle => {
+            // --- [수정] 장애물 처리 로직 ---
+            let collisionDetected = false;
+            obstacles.forEach(obstacle => {
                 obstacle.update();
                 obstacle.draw();
                 
+                // 충돌 감지
                 if (checkCollision(obstacle)) {
-                    gameRunning = false;
-                    gameOver();
+                    collisionDetected = true;
                 }
                 
+                // 스코어 계산
                 if (!obstacle.passed && obstacle.x + obstacle.width < player.x) {
                     obstacle.passed = true;
                     score += 10 * level;
@@ -686,8 +742,17 @@
                         levelDisplay.textContent = level;
                     }
                 }
-                return obstacle.x > -obstacle.width;
             });
+
+            // 충돌이 감지되면 게임 오버 처리
+            if (collisionDetected) {
+                gameRunning = false;
+                gameOver();
+                return; // 게임 루프를 즉시 중단
+            }
+
+            // 화면 밖으로 나간 장애물 제거
+            obstacles = obstacles.filter(obstacle => obstacle.x > -obstacle.width);
             
             particles = particles.filter(p => { p.update(); p.draw(); return p.life > 0; });
             
@@ -700,7 +765,9 @@
         function gameOver() {
             finalScore.textContent = Math.floor(score);
             finalLevel.textContent = level;
-            gameOverElement.style.display = 'flex';
+            gameOverElement.style.display = 'block';
+            
+            // [개선] localStorage에 점수 저장
             saveRanking(playerName, Math.floor(score));
         }
         
@@ -726,23 +793,36 @@
         }
         
         // --- 화면 전환 함수 ---
-        function showScreen(screenToShow) {
-            [loginScreen, mainMenu, rankingScreen].forEach(screen => {
-                screen.style.display = 'none';
-            });
+        function showLogin() {
+            loginScreen.style.display = 'flex';
+            mainMenu.style.display = 'none';
+            rankingScreen.style.display = 'none';
             gameCanvas.style.display = 'none';
             gameUI.style.display = 'none';
-
-            screenToShow.style.display = 'flex';
         }
-
+        
+        function showMainMenu() {
+            loginScreen.style.display = 'none';
+            mainMenu.style.display = 'flex';
+            rankingScreen.style.display = 'none';
+            gameCanvas.style.display = 'none';
+            gameUI.style.display = 'none';
+            welcomeMsg.textContent = `${playerName}님, 환영합니다!`;
+        }
+        
+        function showRanking() {
+            mainMenu.style.display = 'none';
+            rankingScreen.style.display = 'flex';
+            loadRanking();
+        }
+        
         function showGame() {
-            [loginScreen, mainMenu, rankingScreen].forEach(screen => {
-                screen.style.display = 'none';
-            });
+            mainMenu.style.display = 'none';
+            rankingScreen.style.display = 'none';
             gameCanvas.style.display = 'block';
             gameUI.style.display = 'flex';
             
+            // 캔버스 크기 설정
             const containerRect = gameContainer.getBoundingClientRect();
             gameCanvas.width = containerRect.width;
             gameCanvas.height = containerRect.height;
@@ -758,8 +838,7 @@
             const name = nameInput.value.trim();
             if (name) {
                 playerName = name;
-                welcomeMsg.textContent = `${playerName}님, 환영합니다!`;
-                showScreen(mainMenu);
+                showMainMenu();
             } else {
                 nameInput.style.border = '2px solid #E74C3C';
                 setTimeout(() => { nameInput.style.border = 'none'; }, 2000);
@@ -771,13 +850,10 @@
         });
         
         startBtn.addEventListener('click', showGame);
-        rankingBtn.addEventListener('click', () => {
-            loadRanking();
-            showScreen(rankingScreen);
-        });
-        backBtn.addEventListener('click', () => showScreen(mainMenu));
+        rankingBtn.addEventListener('click', showRanking);
+        backBtn.addEventListener('click', showMainMenu);
         restartBtn.addEventListener('click', showGame);
-        menuBtn.addEventListener('click', () => showScreen(mainMenu));
+        menuBtn.addEventListener('click', showMainMenu);
         
         document.addEventListener('keydown', (e) => {
             if (e.code === 'Space' && gameRunning) {
@@ -803,7 +879,7 @@
         });
         
         // 초기 화면
-        showScreen(loginScreen);
+        showLogin();
     </script>
 </body>
 </html>
