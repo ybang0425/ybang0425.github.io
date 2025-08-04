@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>늑다리 러너 게임</title>
+    <title>늑대의 밤 - 러너 게임</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
         
         body {
             margin: 0;
@@ -14,14 +14,15 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: linear-gradient(135deg, #FFE5E5, #E5F3FF, #E5FFE5);
-            font-family: 'Jua', sans-serif;
+            background: linear-gradient(135deg, #2C3E50, #3498DB, #9B59B6);
+            font-family: 'Pretendard', sans-serif;
             overflow: hidden;
         }
         
         #gameContainer {
             position: relative;
             width: 800px;
+            max-width: 95vw;
             height: 400px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
@@ -31,7 +32,9 @@
         
         #gameCanvas {
             display: none;
-            background: linear-gradient(to bottom, #E8F5FF 0%, #FFE8F5 100%);
+            background: linear-gradient(to bottom, #1e3c72 0%, #2a5298 50%, #7e8ba3 100%);
+            width: 100%;
+            height: 100%;
         }
         
         /* 로그인 화면 */
@@ -43,18 +46,18 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #FFE8F5, #E8F5FF);
+            background: linear-gradient(135deg, #2C3E50, #34495E);
         }
         
         #loginScreen h1 {
             font-size: 48px;
-            color: #6B5B95;
+            color: #ECF0F1;
             margin-bottom: 30px;
-            text-shadow: 3px 3px 6px rgba(255,255,255,0.8);
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
         }
         
         #nameInput {
-            font-family: 'Jua', sans-serif;
+            font-family: 'Pretendard', sans-serif;
             font-size: 24px;
             padding: 15px 30px;
             border: none;
@@ -66,21 +69,21 @@
         }
         
         #loginBtn {
-            font-family: 'Jua', sans-serif;
+            font-family: 'Pretendard', sans-serif;
             padding: 15px 40px;
             font-size: 20px;
-            background: #FFB6C1;
+            background: #8E44AD;
             border: none;
             border-radius: 30px;
             color: white;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(255,182,193,0.4);
+            box-shadow: 0 5px 15px rgba(142,68,173,0.4);
         }
         
         #loginBtn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 7px 20px rgba(255,182,193,0.6);
+            box-shadow: 0 7px 20px rgba(142,68,173,0.6);
         }
         
         /* 메인 메뉴 */
@@ -92,17 +95,17 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #E5FFE5, #FFE8F5);
+            background: linear-gradient(135deg, #34495E, #2C3E50);
         }
         
         #mainMenu h2 {
             font-size: 36px;
-            color: #6B5B95;
+            color: #ECF0F1;
             margin-bottom: 40px;
         }
         
         .menuBtn {
-            font-family: 'Jua', sans-serif;
+            font-family: 'Pretendard', sans-serif;
             padding: 20px 60px;
             font-size: 24px;
             margin: 10px;
@@ -114,15 +117,15 @@
         }
         
         #startBtn {
-            background: #98D8C8;
+            background: #3498DB;
             color: white;
-            box-shadow: 0 5px 15px rgba(152,216,200,0.4);
+            box-shadow: 0 5px 15px rgba(52,152,219,0.4);
         }
         
         #rankingBtn {
-            background: #F7DC6F;
+            background: #9B59B6;
             color: white;
-            box-shadow: 0 5px 15px rgba(247,220,111,0.4);
+            box-shadow: 0 5px 15px rgba(155,89,182,0.4);
         }
         
         .menuBtn:hover {
@@ -138,7 +141,7 @@
             display: none;
             flex-direction: column;
             align-items: center;
-            background: linear-gradient(135deg, #E8F5FF, #FFE5E5);
+            background: linear-gradient(135deg, #2C3E50, #3498DB);
             padding: 40px;
             box-sizing: border-box;
             overflow-y: auto;
@@ -146,12 +149,13 @@
         
         #rankingScreen h2 {
             font-size: 42px;
-            color: #6B5B95;
+            color: #ECF0F1;
             margin-bottom: 30px;
         }
         
         .rankItem {
-            width: 600px;
+            width: 90%;
+            max-width: 600px;
             padding: 20px;
             margin: 10px;
             background: white;
@@ -205,10 +209,10 @@
         }
         
         #backBtn {
-            font-family: 'Jua', sans-serif;
+            font-family: 'Pretendard', sans-serif;
             padding: 15px 40px;
             font-size: 20px;
-            background: #B19CD9;
+            background: #34495E;
             border: none;
             border-radius: 30px;
             color: white;
@@ -219,7 +223,7 @@
         
         #backBtn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 7px 20px rgba(177,156,217,0.6);
+            box-shadow: 0 7px 20px rgba(52,73,94,0.6);
         }
         
         /* 게임 UI */
@@ -231,6 +235,7 @@
             display: none;
             justify-content: space-between;
             align-items: flex-start;
+            pointer-events: none; /* UI가 게임 클릭을 방해하지 않도록 설정 */
         }
         
         .gameInfo {
@@ -238,12 +243,13 @@
             padding: 15px 25px;
             border-radius: 20px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
         }
         
         .gameInfo h3 {
             margin: 0;
             font-size: 20px;
-            color: #6B5B95;
+            color: #2C3E50;
         }
         
         .gameInfo p {
@@ -253,7 +259,7 @@
         }
         
         #levelInfo {
-            background: linear-gradient(135deg, #98D8C8, #7EC8B8);
+            background: linear-gradient(135deg, #8E44AD, #9B59B6);
             color: white;
         }
         
@@ -277,12 +283,12 @@
         
         #gameOver h2 {
             font-size: 48px;
-            color: #6B5B95;
+            color: #8E44AD;
             margin-bottom: 20px;
         }
         
         .gameOverBtn {
-            font-family: 'Jua', sans-serif;
+            font-family: 'Pretendard', sans-serif;
             padding: 15px 40px;
             font-size: 20px;
             margin: 10px;
@@ -294,13 +300,13 @@
         }
         
         #restartBtn {
-            background: #FFB6C1;
-            box-shadow: 0 5px 15px rgba(255,182,193,0.4);
+            background: #3498DB;
+            box-shadow: 0 5px 15px rgba(52,152,219,0.4);
         }
         
         #menuBtn {
-            background: #B19CD9;
-            box-shadow: 0 5px 15px rgba(177,156,217,0.4);
+            background: #7F8C8D;
+            box-shadow: 0 5px 15px rgba(127,140,141,0.4);
         }
     </style>
 </head>
@@ -308,7 +314,7 @@
     <div id="gameContainer">
         <!-- 로그인 화면 -->
         <div id="loginScreen">
-            <h1>파스텔 러너</h1>
+            <h1>늑대의 밤</h1>
             <input type="text" id="nameInput" placeholder="이름을 입력하세요" maxlength="10">
             <button id="loginBtn">시작하기</button>
         </div>
@@ -328,7 +334,7 @@
         </div>
         
         <!-- 게임 캔버스 -->
-        <canvas id="gameCanvas" width="800" height="400"></canvas>
+        <canvas id="gameCanvas"></canvas>
         
         <!-- 게임 UI -->
         <div id="gameUI">
@@ -349,15 +355,15 @@
         <!-- 게임 오버 -->
         <div id="gameOver">
             <h2>게임 오버!</h2>
-            <p style="font-size: 24px; color: #9B7EDE; margin-bottom: 10px;">최종 스코어: <span id="finalScore">0</span></p>
-            <p style="font-size: 20px; color: #9B7EDE; margin-bottom: 30px;">최종 레벨: <span id="finalLevel">1</span></p>
+            <p style="font-size: 24px; color: #34495E; margin-bottom: 10px;">최종 스코어: <span id="finalScore">0</span></p>
+            <p style="font-size: 20px; color: #34495E; margin-bottom: 30px;">최종 레벨: <span id="finalLevel">1</span></p>
             <button id="restartBtn" class="gameOverBtn">다시 시작</button>
             <button id="menuBtn" class="gameOverBtn">메인 메뉴</button>
         </div>
     </div>
 
     <script>
-        // DOM 요소
+        // --- DOM 요소 ---
         const loginScreen = document.getElementById('loginScreen');
         const mainMenu = document.getElementById('mainMenu');
         const rankingScreen = document.getElementById('rankingScreen');
@@ -383,33 +389,37 @@
         
         const ctx = gameCanvas.getContext('2d');
         
-        // 게임 변수
+        // --- 게임 변수 ---
         let playerName = '';
         let score = 0;
         let level = 1;
         let gameSpeed = 5;
+        const MAX_GAME_SPEED = 12; // 최고 속도 제한
         let gravity = 0.5;
         let gameRunning = false;
-        let lastObstacleX = 800;
         let levelProgress = 0;
         
+        // --- 새로운 변수: 장애물 생성 로직용 ---
+        let obstacleFrameCounter = 0;
+        let nextObstacleTriggerFrame = 100; // 첫 장애물 등장 타이밍
+
         // 플레이어 객체
         const player = {
             x: 100,
-            y: 300,
+            y: 350,
             radius: 30,
             velocityY: 0,
             jumping: false,
             jumpPower: -12,
-            color: '#B19CD9'
+            color: '#9B59B6'
         };
         
-        // 장애물 배열
+        // 배열
         let obstacles = [];
         let clouds = [];
         let particles = [];
         
-        // 장애물 클래스
+        // --- 클래스 정의 ---
         class Obstacle {
             constructor(type = 'normal') {
                 this.type = type;
@@ -417,60 +427,33 @@
                 
                 switch(type) {
                     case 'normal':
-                        this.width = 40;
-                        this.height = 60 + Math.random() * 40;
-                        this.x = gameCanvas.width;
-                        this.y = gameCanvas.height - this.height - 20;
-                        this.color = '#FFB6C1';
-                        break;
+                        this.width = 40; this.height = 60 + Math.random() * 40;
+                        this.x = gameCanvas.width; this.y = 380 - this.height;
+                        this.color = '#8E44AD'; break;
                     case 'tall':
-                        this.width = 30;
-                        this.height = 100 + Math.random() * 30;
-                        this.x = gameCanvas.width;
-                        this.y = gameCanvas.height - this.height - 20;
-                        this.color = '#98D8C8';
-                        break;
+                        this.width = 30; this.height = 100 + Math.random() * 30;
+                        this.x = gameCanvas.width; this.y = 380 - this.height;
+                        this.color = '#34495E'; break;
                     case 'flying':
-                        this.width = 50;
-                        this.height = 30;
-                        this.x = gameCanvas.width;
-                        this.y = 150 + Math.random() * 100;
-                        this.color = '#F7DC6F';
-                        this.floating = true;
-                        this.floatY = 0;
-                        break;
+                        this.width = 50; this.height = 30;
+                        this.x = gameCanvas.width; this.y = 150 + Math.random() * 100;
+                        this.color = '#95A5A6'; this.floating = true; this.floatY = 0; break;
                     case 'double':
-                        this.width = 35;
-                        this.height = 50;
-                        this.x = gameCanvas.width;
-                        this.y = gameCanvas.height - this.height - 20;
-                        this.color = '#BB8FCE';
-                        this.hasTop = true;
-                        this.topY = 100;
-                        this.topHeight = 50;
-                        break;
+                        this.width = 35; this.height = 50;
+                        this.x = gameCanvas.width; this.y = 380 - this.height;
+                        this.color = '#5D6D7E'; this.hasTop = true; this.topY = 100; this.topHeight = 50; break;
                     case 'moving':
-                        this.width = 40;
-                        this.height = 60;
-                        this.x = gameCanvas.width;
-                        this.baseY = gameCanvas.height - this.height - 20;
-                        this.y = this.baseY;
-                        this.color = '#85C1E2';
-                        this.moveSpeed = 2;
-                        this.moveDirection = -1;
-                        this.moveRange = 50;
-                        break;
+                        this.width = 40; this.height = 60;
+                        this.x = gameCanvas.width; this.baseY = 380 - this.height; this.y = this.baseY;
+                        this.color = '#7F8C8D'; this.moveSpeed = 2; this.moveDirection = -1; this.moveRange = 50; break;
                 }
             }
             
             update() {
                 this.x -= gameSpeed;
-                
                 if (this.type === 'flying' && this.floating) {
-                    this.floatY += 0.05;
-                    this.y += Math.sin(this.floatY) * 1.5;
+                    this.floatY += 0.05; this.y += Math.sin(this.floatY) * 1.5;
                 }
-                
                 if (this.type === 'moving') {
                     this.y += this.moveSpeed * this.moveDirection;
                     if (this.y < this.baseY - this.moveRange || this.y > this.baseY) {
@@ -491,7 +474,6 @@
                     ctx.fill();
                 }
                 
-                // 장애물 장식
                 ctx.fillStyle = 'rgba(255,255,255,0.5)';
                 ctx.beginPath();
                 ctx.arc(this.x + this.width/2, this.y + 10, 5, 0, Math.PI * 2);
@@ -499,7 +481,6 @@
             }
         }
         
-        // 구름 클래스
         class Cloud {
             constructor() {
                 this.x = gameCanvas.width + Math.random() * 200;
@@ -509,14 +490,12 @@
                 this.speed = 1 + Math.random() * 2;
                 this.opacity = 0.3 + Math.random() * 0.3;
             }
-            
             update() {
                 this.x -= this.speed;
                 if (this.x + this.width < 0) {
                     this.x = gameCanvas.width + Math.random() * 200;
                 }
             }
-            
             draw() {
                 ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
                 ctx.beginPath();
@@ -525,108 +504,105 @@
             }
         }
         
-        // 파티클 클래스
         class Particle {
             constructor(x, y) {
-                this.x = x;
-                this.y = y;
+                this.x = x; this.y = y;
                 this.size = Math.random() * 5 + 2;
                 this.velocityX = Math.random() * 3 - 1.5;
                 this.velocityY = Math.random() * 3 - 5;
-                this.color = ['#FFB6C1', '#E8F5FF', '#F7DC6F'][Math.floor(Math.random() * 3)];
+                this.color = ['#9B59B6', '#BDC3C7', '#95A5A6'][Math.floor(Math.random() * 3)];
                 this.life = 1;
             }
-            
             update() {
-                this.x += this.velocityX;
-                this.y += this.velocityY;
-                this.velocityY += 0.2;
-                this.life -= 0.02;
+                this.x += this.velocityX; this.y += this.velocityY;
+                this.velocityY += 0.2; this.life -= 0.02;
             }
-            
             draw() {
-                ctx.fillStyle = this.color;
-                ctx.globalAlpha = this.life;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.globalAlpha = 1;
+                ctx.fillStyle = this.color; ctx.globalAlpha = this.life;
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill(); ctx.globalAlpha = 1;
             }
         }
         
-        // 플레이어 그리기
+        // --- 랭킹 시스템 (localStorage 사용) ---
+        function getRankings() {
+            const rankings = localStorage.getItem('wolfsNightRanking');
+            return rankings ? JSON.parse(rankings) : [];
+        }
+
+        function saveRanking(name, score) {
+            let rankings = getRankings();
+            const playerIndex = rankings.findIndex(r => r.name === name);
+
+            if (playerIndex > -1) {
+                // 기존 유저면 최고 점수만 저장
+                if (score > rankings[playerIndex].score) {
+                    rankings[playerIndex].score = score;
+                }
+            } else {
+                // 신규 유저
+                rankings.push({ name, score });
+            }
+
+            // 점수 순으로 정렬
+            rankings.sort((a, b) => b.score - a.score);
+            // 상위 100명만 저장
+            rankings = rankings.slice(0, 100);
+
+            localStorage.setItem('wolfsNightRanking', JSON.stringify(rankings));
+        }
+
+        // --- 게임 로직 함수 ---
         function drawPlayer() {
-            // 원형 플레이어
             ctx.fillStyle = player.color;
             ctx.beginPath();
             ctx.arc(player.x, player.y, player.radius, 0, Math.PI * 2);
             ctx.fill();
             
-            // 플레이어 테두리
             ctx.strokeStyle = 'rgba(255,255,255,0.8)';
             ctx.lineWidth = 3;
             ctx.stroke();
             
-            // 이름 표시
             ctx.fillStyle = 'white';
-            ctx.font = 'bold 16px Jua';
+            ctx.font = 'bold 16px Pretendard';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.fillText(playerName, player.x, player.y);
         }
         
-        // 점프
         function jump() {
             if (!player.jumping && gameRunning) {
                 player.velocityY = player.jumpPower;
                 player.jumping = true;
-                
                 for (let i = 0; i < 5; i++) {
                     particles.push(new Particle(player.x, player.y + player.radius));
                 }
             }
         }
         
-        // 충돌 감지
         function checkCollision(obstacle) {
-            // 원과 사각형의 충돌 감지
-            let testX = player.x;
-            let testY = player.y;
+            let testX = player.x, testY = player.y;
             
             if (player.x < obstacle.x) testX = obstacle.x;
             else if (player.x > obstacle.x + obstacle.width) testX = obstacle.x + obstacle.width;
-            
             if (player.y < obstacle.y) testY = obstacle.y;
             else if (player.y > obstacle.y + obstacle.height) testY = obstacle.y + obstacle.height;
             
-            let distX = player.x - testX;
-            let distY = player.y - testY;
-            let distance = Math.sqrt((distX * distX) + (distY * distY));
-            
+            let distance = Math.sqrt(Math.pow(player.x - testX, 2) + Math.pow(player.y - testY, 2));
             if (distance <= player.radius) return true;
             
-            // double 타입의 위쪽 장애물도 체크
             if (obstacle.type === 'double' && obstacle.hasTop) {
-                testX = player.x;
-                testY = player.y;
-                
+                testX = player.x; testY = player.y;
                 if (player.x < obstacle.x) testX = obstacle.x;
                 else if (player.x > obstacle.x + obstacle.width) testX = obstacle.x + obstacle.width;
-                
                 if (player.y < obstacle.topY) testY = obstacle.topY;
                 else if (player.y > obstacle.topY + obstacle.topHeight) testY = obstacle.topY + obstacle.topHeight;
-                
-                distX = player.x - testX;
-                distY = player.y - testY;
-                distance = Math.sqrt((distX * distX) + (distY * distY));
-                
+                distance = Math.sqrt(Math.pow(player.x - testX, 2) + Math.pow(player.y - testY, 2));
                 if (distance <= player.radius) return true;
             }
-            
             return false;
         }
         
-        // 게임 초기화
         function initGame() {
             score = 0;
             level = 1;
@@ -635,10 +611,13 @@
             gameRunning = true;
             obstacles = [];
             particles = [];
-            lastObstacleX = 800;
-            player.y = 300;
+            player.y = 350;
             player.velocityY = 0;
             player.jumping = false;
+
+            // 장애물 생성 타이머 초기화
+            obstacleFrameCounter = 0;
+            nextObstacleTriggerFrame = 120; // 첫 장애물은 2초(120프레임) 후에 등장
             
             if (clouds.length === 0) {
                 for (let i = 0; i < 5; i++) {
@@ -649,58 +628,71 @@
             gameOverElement.style.display = 'none';
             gameLoop();
         }
-        
-        // 장애물 타입 선택
-        function getObstacleType() {
-            if (level === 1) return 'normal';
-            if (level === 2) return Math.random() < 0.7 ? 'normal' : 'tall';
-            if (level === 3) return ['normal', 'tall', 'flying'][Math.floor(Math.random() * 3)];
-            if (level === 4) return ['normal', 'tall', 'flying', 'double'][Math.floor(Math.random() * 4)];
-            return ['normal', 'tall', 'flying', 'double', 'moving'][Math.floor(Math.random() * 5)];
+
+        /**
+         * [개선] 레벨에 따라 다음 장애물이 등장할 타이밍을 계산합니다.
+         * 레벨이 높을수록 간격이 좁아져 더 어려워집니다.
+         */
+        function calculateNextObstacleTiming() {
+            // 기본 최소/최대 간격 (픽셀 단위)
+            const baseMinGap = 280;
+            const baseRandomGap = 400;
+
+            // 레벨에 따라 간격을 줄임 (최소 100px의 간격은 보장)
+            const minGap = Math.max(150, baseMinGap - level * 8);
+            const randomGap = Math.max(100, baseRandomGap - level * 10);
+
+            // 다음 장애물까지의 거리 (픽셀)
+            const nextObstacleDistance = minGap + Math.random() * randomGap;
+
+            // 거리를 현재 게임 속도로 나누어 다음 장애물이 등장할 프레임 수를 계산
+            nextObstacleTriggerFrame = nextObstacleDistance / gameSpeed;
         }
         
-        // 게임 루프
+        function getObstacleType() {
+            const types = ['normal'];
+            if (level >= 2) types.push('tall');
+            if (level >= 3) types.push('flying');
+            if (level >= 4) types.push('double');
+            if (level >= 5) types.push('moving');
+            return types[Math.floor(Math.random() * types.length)];
+        }
+        
         function gameLoop() {
             if (!gameRunning) return;
             
             ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
             
-            // 배경
             const gradient = ctx.createLinearGradient(0, 0, 0, gameCanvas.height);
-            gradient.addColorStop(0, '#E8F5FF');
-            gradient.addColorStop(1, '#FFE8F5');
+            gradient.addColorStop(0, '#1e3c72');
+            gradient.addColorStop(0.5, '#2a5298');
+            gradient.addColorStop(1, '#7e8ba3');
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
             
-            // 구름
-            clouds.forEach(cloud => {
-                cloud.update();
-                cloud.draw();
-            });
+            clouds.forEach(c => { c.update(); c.draw(); });
             
-            // 바닥
-            ctx.fillStyle = '#E6E6FA';
-            ctx.fillRect(0, gameCanvas.height - 20, gameCanvas.width, 20);
+            ctx.fillStyle = '#34495E';
+            ctx.fillRect(0, 380, gameCanvas.width, 20);
             
-            // 플레이어 물리
             player.velocityY += gravity;
             player.y += player.velocityY;
             
-            if (player.y > 300) {
-                player.y = 300;
+            if (player.y > 350) {
+                player.y = 350;
                 player.jumping = false;
                 player.velocityY = 0;
             }
-            
             drawPlayer();
             
-            // 장애물 생성 (최소 간격 보장)
-            if (gameCanvas.width - lastObstacleX > 200 + Math.random() * 150) {
+            // --- [개선] 장애물 생성 로직 ---
+            obstacleFrameCounter++;
+            if (obstacleFrameCounter > nextObstacleTriggerFrame) {
                 obstacles.push(new Obstacle(getObstacleType()));
-                lastObstacleX = gameCanvas.width;
+                obstacleFrameCounter = 0;
+                calculateNextObstacleTiming(); // 다음 장애물 타이밍 계산
             }
             
-            // 장애물 업데이트
             obstacles = obstacles.filter(obstacle => {
                 obstacle.update();
                 obstacle.draw();
@@ -715,77 +707,56 @@
                     score += 10 * level;
                     levelProgress++;
                     
-                    // 레벨업
                     if (levelProgress >= 10 + (level * 5)) {
                         level++;
                         levelProgress = 0;
-                        gameSpeed += 0.5;
+                        // [개선] 속도를 점진적으로 증가시키고, 최대 속도 제한
+                        gameSpeed = Math.min(MAX_GAME_SPEED, gameSpeed + 0.3);
                         levelDisplay.textContent = level;
                     }
                 }
-                
                 return obstacle.x > -obstacle.width;
             });
             
-            // 파티클
-            particles = particles.filter(particle => {
-                particle.update();
-                particle.draw();
-                return particle.life > 0;
-            });
+            particles = particles.filter(p => { p.update(); p.draw(); return p.life > 0; });
             
-            // 점수 업데이트
             score += 0.1 * level;
             scoreDisplay.textContent = Math.floor(score);
             
             requestAnimationFrame(gameLoop);
         }
         
-        // 게임 오버
-        async function gameOver() {
+        function gameOver() {
             finalScore.textContent = Math.floor(score);
             finalLevel.textContent = level;
             gameOverElement.style.display = 'block';
             
-            // 점수 저장
-            try {
-                await fetch('/api/ranking', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        playerName: playerName,
-                        score: Math.floor(score),
-                        level: level
-                    })
-                });
-            } catch (error) {
-                console.error('점수 저장 실패:', error);
-            }
+            // [개선] localStorage에 점수 저장
+            saveRanking(playerName, Math.floor(score));
         }
         
-        // 랭킹 불러오기
-        async function loadRanking() {
-            try {
-                const response = await fetch('/api/ranking');
-                const rankings = await response.json();
-                
-                rankingList.innerHTML = '';
-                rankings.forEach((rank, index) => {
-                    const rankItem = document.createElement('div');
-                    rankItem.className = `rankItem ${index < 3 ? `rank${index + 1}` : ''}`;
-                    rankItem.innerHTML = `
-                        <span class="rankNumber">${index + 1}</span>
-                        <span class="rankName">${rank.player_name}</span>
-                        <span class="rankScore">${rank.best_score}점</span>
-                    `;
-                    rankingList.appendChild(rankItem);
-                });
-            } catch (error) {
-                console.error('랭킹 로딩 실패:', error);
+        function loadRanking() {
+            const rankings = getRankings();
+            rankingList.innerHTML = '';
+            
+            if (rankings.length === 0) {
+                rankingList.innerHTML = '<p style="color: white; font-size: 20px;">아직 기록이 없습니다!</p>';
+                return;
             }
+
+            rankings.forEach((rank, index) => {
+                const rankItem = document.createElement('div');
+                rankItem.className = `rankItem ${index < 3 ? `rank${index + 1}` : ''}`;
+                rankItem.innerHTML = `
+                    <span class="rankNumber">${index + 1}</span>
+                    <span class="rankName">${rank.name}</span>
+                    <span class="rankScore">${rank.score}점</span>
+                `;
+                rankingList.appendChild(rankItem);
+            });
         }
         
-        // 화면 전환 함수
+        // --- 화면 전환 함수 ---
         function showLogin() {
             loginScreen.style.display = 'flex';
             mainMenu.style.display = 'none';
@@ -804,40 +775,42 @@
         }
         
         function showRanking() {
-            loginScreen.style.display = 'none';
             mainMenu.style.display = 'none';
             rankingScreen.style.display = 'flex';
-            gameCanvas.style.display = 'none';
-            gameUI.style.display = 'none';
             loadRanking();
         }
         
         function showGame() {
-            loginScreen.style.display = 'none';
             mainMenu.style.display = 'none';
             rankingScreen.style.display = 'none';
             gameCanvas.style.display = 'block';
             gameUI.style.display = 'flex';
+            
+            // 캔버스 크기 설정
+            const containerRect = gameContainer.getBoundingClientRect();
+            gameCanvas.width = containerRect.width;
+            gameCanvas.height = containerRect.height;
+
             playerNameDisplay.textContent = playerName;
             levelDisplay.textContent = '1';
             scoreDisplay.textContent = '0';
             initGame();
         }
         
-        // 이벤트 리스너
+        // --- 이벤트 리스너 ---
         loginBtn.addEventListener('click', () => {
-            if (nameInput.value.trim()) {
-                playerName = nameInput.value.trim();
+            const name = nameInput.value.trim();
+            if (name) {
+                playerName = name;
                 showMainMenu();
             } else {
-                alert('이름을 입력해주세요!');
+                nameInput.style.border = '2px solid #E74C3C';
+                setTimeout(() => { nameInput.style.border = 'none'; }, 2000);
             }
         });
         
         nameInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                loginBtn.click();
-            }
+            if (e.key === 'Enter') loginBtn.click();
         });
         
         startBtn.addEventListener('click', showGame);
@@ -846,7 +819,6 @@
         restartBtn.addEventListener('click', showGame);
         menuBtn.addEventListener('click', showMainMenu);
         
-        // 게임 컨트롤
         document.addEventListener('keydown', (e) => {
             if (e.code === 'Space' && gameRunning) {
                 e.preventDefault();
@@ -855,14 +827,19 @@
         });
         
         gameCanvas.addEventListener('touchstart', (e) => {
-            if (gameRunning) {
-                e.preventDefault();
-                jump();
-            }
+            if (gameRunning) { e.preventDefault(); jump(); }
         });
         
         gameCanvas.addEventListener('click', () => {
             if (gameRunning) jump();
+        });
+
+        window.addEventListener('resize', () => {
+            if (gameCanvas.style.display === 'block') {
+                const containerRect = gameContainer.getBoundingClientRect();
+                gameCanvas.width = containerRect.width;
+                gameCanvas.height = containerRect.height;
+            }
         });
         
         // 초기 화면
